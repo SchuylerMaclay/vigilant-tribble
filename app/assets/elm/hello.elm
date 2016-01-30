@@ -1,8 +1,38 @@
 module Hello where
 
-import Graphics.Element exposing (show)
+import Color exposing (..)
+import Graphics.Collage exposing (..)
+import Graphics.Element exposing (..)
+import Mouse
+import Window
+import Graphics.Element exposing (..)
+import Mouse
+import Color exposing (..)
+import Graphics.Collage exposing (..)
+import Graphics.Element exposing (..)
+import Mouse
+import Window
 
 port noun : String
 
+
+
+main : Signal Element
 main =
-  show ("Hello " ++ noun)
+  Signal.map2 scene Mouse.position Window.dimensions
+
+
+scene : (Int,Int) -> (Int,Int) -> Element
+scene (x,y) (w,h) =
+  let
+    (dx,dy) =
+      (toFloat x - toFloat w / 2, toFloat h / 2 - toFloat y)
+  in
+    collage w h
+      [ ngon 3 100
+          |> filled blue
+          |> rotate (atan2 dy dx)
+      , ngon 6 30
+          |> filled orange
+          |> move (dx, dy)
+      ]

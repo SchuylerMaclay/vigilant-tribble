@@ -41,5 +41,5 @@ Rails.application.configure do
 
   config.assets.configure do |env|
   env.cache = ActiveSupport::Cache.lookup_store(:null_store)
-end
+  end
 end
