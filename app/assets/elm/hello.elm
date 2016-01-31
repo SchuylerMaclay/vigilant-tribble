@@ -20,6 +20,7 @@ import Text
 import Time exposing (..)
 import Window
 
+import Debug
 import Char
 import Html exposing (..)
 import Html.Attributes as Attr exposing (..)
@@ -37,7 +38,7 @@ view : String -> Result String (List String) -> Html
 view string result =
   let field =
         input
-          [ placeholder "Zip Code"
+          [ placeholder "User Name"
           , value string
           , on "input" targetValue (Signal.message query.address)
           , myStyle
@@ -79,7 +80,7 @@ query =
 
 results : Signal.Mailbox (Result String (List String))
 results =
-  Signal.mailbox (Err "A valid US zip code is 5 numbers.")
+  Signal.mailbox (Err "A valid User name is 3 characters")
 
 
 port requests : Signal (Task x ())
@@ -91,11 +92,12 @@ port requests =
 lookupZipCode : String -> Task String (List String)
 lookupZipCode query =
   let toUrl =
-        if String.length query == 5 && String.all Char.isDigit query
-          then succeed ("http://api.zippopotam.us/us/" ++ query)
-          else fail "Give me a valid US zip code!"
+        if True
+          then succeed ("http://localhost:3000/users/findme/" ++ query ++ ".json")
+          else fail "No User With that name"
   in
-      toUrl `andThen` (mapError (always "Not found :(") << Http.get places)
+      toUrl `andThen` (mapError (always "User not found") << Http.get places)
+
 
 
 places : Json.Decoder (List String)
