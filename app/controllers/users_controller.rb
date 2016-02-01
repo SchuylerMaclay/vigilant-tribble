@@ -21,15 +21,12 @@ class UsersController < ApplicationController
 
         # format.html { redirect_to @user, notice: 'User was successfully created.' }
         format.json { render json: {
-              "post code": "10001",
-              "country": "United States",
-              "country abbreviation": "US",
-              "places": [
+              "": "",
+              "names": [
                 {
-                  "place name": @user.name,
+                  "name": @user.name,
                   "longitude": "-73.9967",
-                  "state": @user.password,
-                  "state abbreviation": "NY",
+                  "password": @user.password,
                   "latitude": "40.7484"
                 }
               ]

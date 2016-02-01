@@ -1,24 +1,5 @@
 module Hello where
 
-import Color exposing (..)
-import Graphics.Collage exposing (..)
-import Graphics.Element exposing (..)
-import Mouse
-import Window
-import Graphics.Element exposing (..)
-import Mouse
-import Color exposing (..)
-import Graphics.Collage exposing (..)
-import Graphics.Element exposing (..)
-import Mouse
-import Window
-import Color exposing (..)
-import Graphics.Collage exposing (..)
-import Graphics.Element exposing (..)
-import Keyboard
-import Text
-import Time exposing (..)
-import Window
 
 import Debug
 import Char
@@ -103,8 +84,8 @@ lookupZipCode query =
 places : Json.Decoder (List String)
 places =
   let place =
-        Json.object2 (\city state -> city ++ ", " ++ state)
-          ("place name" := Json.string)
-          ("state" := Json.string)
+        Json.object2 (\name password -> name ++ ", " ++ password)
+          ("name" := Json.string)
+          ("password" := Json.string)
   in
-      "places" := Json.list place
+      "names" := Json.list place
