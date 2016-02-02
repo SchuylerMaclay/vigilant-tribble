@@ -31,8 +31,8 @@ view string result =
           Err msg ->
               [ div [ myStyle ] [ Html.text msg ] ]
 
-          Ok cities ->
-              List.map (\city -> div [ myStyle ] [ Html.text city ]) cities
+          Ok users ->
+              List.map (\user -> div [ myStyle ] [ Html.text user ]) users
   in
       div [] (field :: messages)
 
@@ -77,15 +77,15 @@ lookupZipCode query =
           then succeed ("http://localhost:3000/users/findme/" ++ query ++ ".json")
           else fail "No User With that name"
   in
-      toUrl `andThen` (mapError (always "User not found") << Http.get places)
+      toUrl `andThen` (mapError (always "User not found") << Http.get users)
 
 
 
-places : Json.Decoder (List String)
-places =
-  let place =
+users : Json.Decoder (List String)
+users =
+  let user =
         Json.object2 (\name password -> name ++ ", " ++ password)
           ("name" := Json.string)
           ("password" := Json.string)
   in
-      "names" := Json.list place
+      "names" := Json.list user
